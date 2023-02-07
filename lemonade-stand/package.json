@@ -1,0 +1,19 @@
+{
+  "name": "lemonade-stand",
+  "version": "1.0.0",
+  "description": "Cooksys lemonade stand app",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel ./src -d ./build",
+    "prestart": "npm run build",
+    "start": "node ."
+  },
+  "author": "Richard Rodriguez-Van Dusen",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2"
+  }
+}
