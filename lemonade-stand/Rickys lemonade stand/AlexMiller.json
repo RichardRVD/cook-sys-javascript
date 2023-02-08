@@ -1,0 +1,47 @@
+{
+    "total": 18.31,
+    "lemonades": [
+        {
+            "lemonJuice": 6,
+            "water": 7,
+            "sugar": 8,
+            "iceCubes": 9,
+            "price": 4.67
+        },
+        {
+            "lemonJuice": 1,
+            "water": 2,
+            "sugar": 3,
+            "iceCubes": 4,
+            "price": 1.87
+        },
+        {
+            "lemonJuice": 5,
+            "water": 6,
+            "sugar": 7,
+            "iceCubes": 8,
+            "price": 4.11
+        },
+        {
+            "lemonJuice": 1,
+            "water": 2,
+            "sugar": 3,
+            "iceCubes": 4,
+            "price": 1.87
+        },
+        {
+            "lemonJuice": 9,
+            "water": 9,
+            "sugar": 9,
+            "iceCubes": 9,
+            "price": 5.79
+        }
+    ],
+    "customer": {
+        "name": "AlexMiller",
+        "phoneNumber": 1234567890
+    },
+    "lemonadeStand": {
+        "name": "Rickys lemonade stand"
+    }
+}

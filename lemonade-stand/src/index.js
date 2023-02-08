@@ -1,5 +1,5 @@
 import Vorpal from 'vorpal'
-import { writeFileSync, readAllFiles, buildQuestionArray, createLemonadeObject, addLemonadeToOrder, createLemonade, updateOrderTotal} from './lib'
+import { writeFileSync, readAllFiles, buildQuestionArray, createLemonadeObject, addLemonadeToOrder, createLemonade, updateOrderTotal , map} from './lib'
 const vorpal = Vorpal()
 
 vorpal
@@ -46,7 +46,7 @@ vorpal.command('createOrder <name> <phoneNumber>', 'Create an oder and saves it 
             //         addLemonadeToOrder(order, createLemonade(response, i))
             //         )
             // }
-            const order = updateOrderTotal([...Array(Number.parseInt(numLemonades))].map(createLemonade(response)).reduce(addLemonadeToOrder, {
+            const order = updateOrderTotal([...Array(Number.parseInt(numLemonades))].reduce(map(createLemonade(response))(addLemonadeToOrder), {
                     total:0,
                     lemonades: [],
                     customer : {

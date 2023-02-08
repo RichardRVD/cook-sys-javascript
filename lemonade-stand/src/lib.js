@@ -1,5 +1,15 @@
 import fs from 'fs'
 import { dirname } from 'path'
+
+const curry = (f, arr = []) => (...args) => (
+    a => a.length === f.length
+    ? f(...a)
+    :curry(f, a)
+)([...arr, ...args])
+
+//Transducer: transformer => reducer => reducer
+export const map = f => reducer => (acc, curr, idx, arr) => reducer(acc, f(curr, idx), idx, arr)
+
 const calculateLemonadePrice = lemonade => {
     let result = .75
     for (let key in lemonade) {
@@ -65,15 +75,15 @@ export const buildQuestionArray = (val, i) => [
     }
 ]
 
-export const createLemonade = (response) => (curr, i) => ({
+export const createLemonade = curry((response, curr, i) => ({
     lemonJuice: Number.parseInt(response['lemonJuice' + (i + 1)]),
     water: Number.parseInt(response['water' + (i + 1)]),
     sugar: Number.parseInt(response['sugar' + (i + 1)]),
     iceCubes: Number.parseInt(response['iceCubes' + (i + 1)])
-})
-export const addLemonadeToOrder = (originalOrder, lemonade) => ({
-    ...originalOrder,
-    lemonades: [...originalOrder.lemonades, { ...lemonade, price: calculateLemonadePrice(lemonade) }]
+}))
+export const addLemonadeToOrder = (acc, curr) => ({
+    ...acc,
+    lemonades: [...acc.lemonades, { ...curr, price: calculateLemonadePrice(curr) }]
 })
 export const updateOrderTotal = (order) => ({
     ...order,
