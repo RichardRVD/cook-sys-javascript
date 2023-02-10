@@ -1,5 +1,5 @@
 import Vorpal from 'vorpal'
-import { writeFileSync, readAllFiles, buildQuestionArray, createLemonadeObject, addLemonadeToOrder, createLemonade, updateOrderTotal , map} from './lib'
+import { readAllFiles,  createLemonadesArray, createOrderObject, createQuestionsArry, calculateLemonadePrice, promptIngredientQuestions, writeOrderToFile, addPriceToLemonades } from './lib'
 const vorpal = Vorpal()
 
 vorpal
@@ -12,56 +12,24 @@ vorpal
         this.log(`Hello ${args.name}, should I call you at ${args.number}`)
         callback()
     })
-vorpal.command('createOrder <name> <phoneNumber>', 'Create an oder and saves it as a JSON file.').action(function(args, callback){
-    
 
-    this.prompt({
+vorpal.command(
+    'createOrder <name> <phoneNumber>', 
+    'Create an oder and saves it as a JSON file.'
+)
+.action(function({name, phoneNumber}){
+    return this.prompt({
         type: 'number',
         name: 'numLemonades',
         default: 1,
         message: "How many lemonades would you like to order?"
-    }, ({numLemonades}) => { 
-
-        
-        const questions = [...Array(Number.parseInt(numLemonades))].flatMap(buildQuestionArray)
-        // build up an array as we loop over the number of lemonades a customer wants
-        // for (let i = 1; i <= Number.parseInt(numLemonades); i++){
-        //     questions = buildQuestionArray(questions, i);
-        // }
-        this.prompt(questions, response => {
-            // let order = {
-            //     total:0,
-            //     lemonades: [],
-            //     customer : {
-            //     name: args.name,
-            //     phoneNumber: args.phoneNumber
-            //     },
-            //     lemonadeStand: {
-            //         name: "Rickys lemonade stand"
-            //     }
-            // }
-
-            // for(let i = 1; i <= numLemonades; i++){
-            //     order = updateOrderTotal(
-            //         addLemonadeToOrder(order, createLemonade(response, i))
-            //         )
-            // }
-            const order = updateOrderTotal([...Array(Number.parseInt(numLemonades))].reduce(map(createLemonade(response))(addLemonadeToOrder), {
-                    total:0,
-                    lemonades: [],
-                    customer : {
-                    name: args.name,
-                    phoneNumber: args.phoneNumber
-                    },
-                    lemonadeStand: {
-                        name: "Rickys lemonade stand"
-                    }
-                }))
-
-            writeFileSync(order.lemonadeStand.name + '/' + order.customer.name + '.json', order)
-            callback()
-            })
-        })
+    })
+    .then(createQuestionsArry)
+    .then(promptIngredientQuestions(this))
+    .then(createLemonadesArray) // [[key, idx, value], [key, idx, value]]
+    .then(addPriceToLemonades)
+    .then(createOrderObject(name, phoneNumber))
+    .then(writeOrderToFile)
 })
 
 vorpal

@@ -1,0 +1,43 @@
+{
+    "customer": {
+        "name": "Steve",
+        "phoneNumber": 1234567890
+    },
+    "lemonadeStand": {
+        "name": "Rickys Lemonade Stand"
+    },
+    "lemonades": [
+        {
+            "lemonJuice": 4,
+            "price": 1.95
+        },
+        {
+            "water": 4,
+            "sugar": 4,
+            "iceCubes": 4,
+            "price": 1.79
+        },
+        {
+            "lemonJuice": 5,
+            "water": 45,
+            "sugar": 5,
+            "iceCubes": 5,
+            "price": 3.95
+        },
+        {
+            "lemonJuice": 6,
+            "water": 6,
+            "sugar": 6,
+            "iceCubes": 6,
+            "price": 4.11
+        },
+        {
+            "lemonJuice": 7,
+            "water": 7,
+            "sugar": 7,
+            "iceCubes": 7,
+            "price": 4.67
+        }
+    ],
+    "total": 16.47
+}
